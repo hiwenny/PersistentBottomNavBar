@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
+import './MainScreen2.dart';
+import './MainScreen3.dart';
 import 'modal-screen.dart';
 
-class MainScreen extends StatelessWidget {
-  final BuildContext menuScreenContext;
+class TabMainScreen extends StatelessWidget {
+  final BuildContext rootScreenContext;
   final Function onScreenHideButtonPressed;
   final bool hideStatus;
-  const MainScreen(
+  const TabMainScreen(
       {Key key,
-      this.menuScreenContext,
+      this.rootScreenContext,
       this.onScreenHideButtonPressed,
       this.hideStatus = false})
       : super(key: key);
@@ -41,12 +42,30 @@ class MainScreen extends StatelessWidget {
                       context,
                       settings: RouteSettings(name: '/home'),
                       screen: MainScreen2(),
-                      pageTransitionAnimation:
-                          PageTransitionAnimation.scaleRotate,
+                      // pageTransitionAnimation:
+                      //     PageTransitionAnimation.scaleRotate,
                     );
                   },
                   child: Text(
                     "Go to Second Screen ->",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              Center(
+                child: RaisedButton(
+                  color: Colors.blue,
+                  onPressed: () {
+                    pushNewScreenWithRouteSettings(
+                      context,
+                      settings: RouteSettings(name: '/home'),
+                      screen: MainScreen3(),
+                      // pageTransitionAnimation:
+                      //     PageTransitionAnimation.scaleRotate,
+                    );
+                  },
+                  child: Text(
+                    "Go to Third Screen ->",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -138,7 +157,7 @@ class MainScreen extends StatelessWidget {
                 child: RaisedButton(
                   color: Colors.red,
                   onPressed: () {
-                    Navigator.of(this.menuScreenContext).pop();
+                    Navigator.of(this.rootScreenContext).pop();
                   },
                   child: Text(
                     "<- Main Menu",
@@ -150,71 +169,6 @@ class MainScreen extends StatelessWidget {
                 height: 60.0,
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MainScreen2 extends StatelessWidget {
-  const MainScreen2({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.teal,
-      body: Container(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              RaisedButton(
-                color: Colors.indigo,
-                onPressed: () {
-                  pushNewScreen(context, screen: MainScreen3());
-                },
-                child: Text(
-                  "Go to Third Screen",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              RaisedButton(
-                color: Colors.indigo,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  "Go Back to First Screen",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MainScreen3 extends StatelessWidget {
-  const MainScreen3({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.deepOrangeAccent,
-      body: Container(
-        child: Center(
-          child: RaisedButton(
-            color: Colors.blue,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text(
-              "Go Back to Second Screen",
-              style: TextStyle(color: Colors.white),
-            ),
           ),
         ),
       ),

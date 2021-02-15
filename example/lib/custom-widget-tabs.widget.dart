@@ -3,16 +3,17 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'main.dart';
 import 'screens.dart';
+import './CustomNavBarWidget.dart';
 
-class CustomWidgetExample extends StatefulWidget {
-  final BuildContext menuScreenContext;
-  CustomWidgetExample({Key key, this.menuScreenContext}) : super(key: key);
+class NavigationController extends StatefulWidget {
+  final BuildContext rootScreenContext;
+  NavigationController({Key key, this.rootScreenContext}) : super(key: key);
 
   @override
-  _CustomWidgetExampleState createState() => _CustomWidgetExampleState();
+  _NavigationControllerState createState() => _NavigationControllerState();
 }
 
-class _CustomWidgetExampleState extends State<CustomWidgetExample> {
+class _NavigationControllerState extends State<NavigationController> {
   PersistentTabController _controller;
   bool _hideNavBar;
 
@@ -25,8 +26,8 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
 
   List<Widget> _buildScreens() {
     return [
-      MainScreen(
-        menuScreenContext: widget.menuScreenContext,
+      TabMainScreen(
+        rootScreenContext: widget.rootScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -34,8 +35,8 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
           });
         },
       ),
-      MainScreen(
-        menuScreenContext: widget.menuScreenContext,
+      TabMainScreen(
+        rootScreenContext: widget.rootScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -43,8 +44,8 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
           });
         },
       ),
-      MainScreen(
-        menuScreenContext: widget.menuScreenContext,
+      TabMainScreen(
+        rootScreenContext: widget.rootScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -52,17 +53,8 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
           });
         },
       ),
-      MainScreen(
-        menuScreenContext: widget.menuScreenContext,
-        hideStatus: _hideNavBar,
-        onScreenHideButtonPressed: () {
-          setState(() {
-            _hideNavBar = !_hideNavBar;
-          });
-        },
-      ),
-      MainScreen(
-        menuScreenContext: widget.menuScreenContext,
+      TabMainScreen(
+        rootScreenContext: widget.rootScreenContext,
         hideStatus: _hideNavBar,
         onScreenHideButtonPressed: () {
           setState(() {
@@ -77,31 +69,25 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(Icons.home),
-        title: "Home",
+        title: "My Bookings",
         activeColor: Colors.blue,
         inactiveColor: Colors.grey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.search),
-        title: ("Search"),
+        title: ("Hubs"),
         activeColor: Colors.teal,
         inactiveColor: Colors.grey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.add),
-        title: ("Add"),
+        title: ("Contacts"),
         activeColor: Colors.deepOrange,
         inactiveColor: Colors.grey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.settings),
-        title: ("Settings"),
-        activeColor: Colors.indigo,
-        inactiveColor: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.settings),
-        title: ("Settings"),
+        title: ("Admin"),
         activeColor: Colors.indigo,
         inactiveColor: Colors.grey,
       ),
@@ -112,22 +98,12 @@ class _CustomWidgetExampleState extends State<CustomWidgetExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Navigation Bar Demo')),
-      drawer: Drawer(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text('This is the Drawer'),
-            ],
-          ),
-        ),
-      ),
       body: PersistentTabView.custom(
         context,
         controller: _controller,
         screens: _buildScreens(),
         confineInSafeArea: true,
-        itemCount: 5,
+        itemCount: 4,
         handleAndroidBackButtonPress: true,
         resizeToAvoidBottomInset: false,
         stateManagement: true,
